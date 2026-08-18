@@ -1,0 +1,94 @@
+<UserControl x:Class="AdvancedCalculator.UI.Views.StandardCalculatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="400">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />  <!-- Display & Status -->
+            <RowDefinition Height="Auto" />  <!-- Memory Bar -->
+            <RowDefinition Height="*" />     <!-- Keypad Grid -->
+        </Grid.RowDefinitions>
+
+        <!-- Display Area -->
+        <Border Grid.Row="0" Background="{DynamicResource CardBrush}" CornerRadius="12" Padding="16" Margin="0,0,0,12" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+            <StackPanel VerticalAlignment="Bottom">
+                <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource AccentSecondaryBrush}" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" HorizontalAlignment="Right" />
+                <TextBlock Text="{Binding DisplayExpression}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="16" HorizontalAlignment="Right" TextTrimming="CharacterEllipsis" MinHeight="22" />
+                <TextBox Text="{Binding CurrentInput, Mode=TwoWay}" Foreground="{DynamicResource TextBrush}" FontSize="36" FontWeight="Bold" HorizontalAlignment="Stretch" TextAlignment="Right" Background="Transparent" BorderThickness="0" IsReadOnly="True" Focusable="False" />
+            </StackPanel>
+        </Border>
+
+        <!-- Memory Buttons Row -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="MC" Style="{DynamicResource MemoryButtonStyle}" Command="{Binding MemoryCommand}" CommandParameter="MC" IsEnabled="{Binding HasMemory}" />
+            <Button Grid.Column="1" Content="MR" Style="{DynamicResource MemoryButtonStyle}" Command="{Binding MemoryCommand}" CommandParameter="MR" IsEnabled="{Binding HasMemory}" />
+            <Button Grid.Column="2" Content="M+" Style="{DynamicResource MemoryButtonStyle}" Command="{Binding MemoryCommand}" CommandParameter="M+" />
+            <Button Grid.Column="3" Content="M-" Style="{DynamicResource MemoryButtonStyle}" Command="{Binding MemoryCommand}" CommandParameter="M-" />
+            <Button Grid.Column="4" Content="MS" Style="{DynamicResource MemoryButtonStyle}" Command="{Binding MemoryCommand}" CommandParameter="MS" />
+        </Grid>
+
+        <!-- Main Keypad Grid (6 rows x 4 columns) -->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Row 0: %, CE, C, Backspace -->
+            <Button Grid.Row="0" Grid.Column="0" Content="%" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding PercentageCommand}" />
+            <Button Grid.Row="0" Grid.Column="1" Content="CE" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding ClearEntryCommand}" />
+            <Button Grid.Row="0" Grid.Column="2" Content="C" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding ClearCommand}" />
+            <Button Grid.Row="0" Grid.Column="3" Content="⌫" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding BackspaceCommand}" />
+
+            <!-- Row 1: 1/x, x², √x, ÷ -->
+            <Button Grid.Row="1" Grid.Column="0" Content="¹/x" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding QuickFunctionCommand}" CommandParameter="recip" />
+            <Button Grid.Row="1" Grid.Column="1" Content="x²" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding QuickFunctionCommand}" CommandParameter="sqr" />
+            <Button Grid.Row="1" Grid.Column="2" Content="²√x" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding QuickFunctionCommand}" CommandParameter="sqrt" />
+            <Button Grid.Row="1" Grid.Column="3" Content="÷" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding AppendOperatorCommand}" CommandParameter="/" />
+
+            <!-- Row 2: 7, 8, 9, × -->
+            <Button Grid.Row="2" Grid.Column="0" Content="7" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="7" />
+            <Button Grid.Row="2" Grid.Column="1" Content="8" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="8" />
+            <Button Grid.Row="2" Grid.Column="2" Content="9" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="9" />
+            <Button Grid.Row="2" Grid.Column="3" Content="×" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding AppendOperatorCommand}" CommandParameter="*" />
+
+            <!-- Row 3: 4, 5, 6, - -->
+            <Button Grid.Row="3" Grid.Column="0" Content="4" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="4" />
+            <Button Grid.Row="3" Grid.Column="1" Content="5" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="5" />
+            <Button Grid.Row="3" Grid.Column="2" Content="6" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="6" />
+            <Button Grid.Row="3" Grid.Column="3" Content="-" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding AppendOperatorCommand}" CommandParameter="-" />
+
+            <!-- Row 4: 1, 2, 3, + -->
+            <Button Grid.Row="4" Grid.Column="0" Content="1" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="1" />
+            <Button Grid.Row="4" Grid.Column="1" Content="2" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="2" />
+            <Button Grid.Row="4" Grid.Column="2" Content="3" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="3" />
+            <Button Grid.Row="4" Grid.Column="3" Content="+" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding AppendOperatorCommand}" CommandParameter="+" />
+
+            <!-- Row 5: ±, 0, ., = -->
+            <Button Grid.Row="5" Grid.Column="0" Content="±" Style="{DynamicResource NumberButtonStyle}" Command="{Binding NegateCommand}" />
+            <Button Grid.Row="5" Grid.Column="1" Content="0" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="0" />
+            <Button Grid.Row="5" Grid.Column="2" Content="." Style="{DynamicResource NumberButtonStyle}" Command="{Binding DecimalCommand}" />
+            <Button Grid.Row="5" Grid.Column="3" Content="=" Style="{DynamicResource AccentButtonStyle}" Command="{Binding CalculateCommand}" />
+        </Grid>
+    </Grid>
+</UserControl>

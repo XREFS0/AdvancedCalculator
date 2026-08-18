@@ -1,0 +1,20 @@
+## Build & Test Artifacts
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+.idea/
+.vscode/
+
+## SQLite & Local Data
+*.db
+*.db-shm
+*.db-wal
+settings.json
+
+## Logs & Crash Reports
+*.log
+*.crash

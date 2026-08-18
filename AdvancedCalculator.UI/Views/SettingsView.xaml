@@ -1,0 +1,92 @@
+<UserControl x:Class="AdvancedCalculator.UI.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:enums="clr-namespace:AdvancedCalculator.Core.Enums;assembly=AdvancedCalculator.Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="500">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="24" MaxWidth="600" HorizontalAlignment="Left">
+            <TextBlock Text="Settings" FontSize="26" FontWeight="Bold" Foreground="{DynamicResource TextBrush}" Margin="0,0,0,20" />
+
+            <!-- Appearance Section -->
+            <Border Background="{DynamicResource CardBrush}" CornerRadius="10" Padding="16" Margin="0,0,0,16" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Appearance" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource TextBrush}" Margin="0,0,0,12" />
+                    
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Theme Mode" Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="1" SelectedItem="{Binding SelectedTheme, Mode=TwoWay}" Style="{DynamicResource ModernComboBox}" Width="140">
+                            <enums:AppTheme>Dark</enums:AppTheme>
+                            <enums:AppTheme>Light</enums:AppTheme>
+                        </ComboBox>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Always on top" Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center" />
+                        <CheckBox Grid.Column="1" IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Calculation Options -->
+            <Border Background="{DynamicResource CardBrush}" CornerRadius="10" Padding="16" Margin="0,0,0,16" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Calculation &amp; Precision" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource TextBrush}" Margin="0,0,0,12" />
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Decimal Places Precision (0-15)" Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center" />
+                        <TextBox Grid.Column="1" Text="{Binding DecimalPrecision, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ModernTextBox}" Width="70" TextAlignment="Center" />
+                    </Grid>
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Auto-copy result to clipboard" Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center" />
+                        <CheckBox Grid.Column="1" IsChecked="{Binding AutoCopyResult, Mode=TwoWay}" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Save calculations to history" Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center" />
+                        <CheckBox Grid.Column="1" IsChecked="{Binding EnableHistorySaving, Mode=TwoWay}" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Shortcuts Reference -->
+            <Border Background="{DynamicResource CardBrush}" CornerRadius="10" Padding="16" Margin="0,0,0,16" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Keyboard Shortcuts Reference" FontSize="16" FontWeight="SemiBold" Foreground="{DynamicResource TextBrush}" Margin="0,0,0,12" />
+                    <TextBlock Text="• Enter / = : Calculate expression" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,2" />
+                    <TextBlock Text="• Esc : Clear (C)" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,2" />
+                    <TextBlock Text="• Backspace : Delete last character" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,2" />
+                    <TextBlock Text="• Ctrl + C : Copy result" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,2" />
+                    <TextBlock Text="• Ctrl + V : Paste number" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,2" />
+                    <TextBlock Text="• F1 - F4 : Switch between Standard, Scientific, Programmer, Converter" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,2" />
+                </StackPanel>
+            </Border>
+
+            <!-- Reset Button -->
+            <Button Content="Reset All to Defaults" Style="{DynamicResource CalcButtonBase}" Command="{Binding ResetDefaultsCommand}" Height="40" Padding="16,0" HorizontalAlignment="Left" Foreground="{DynamicResource ErrorBrush}" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

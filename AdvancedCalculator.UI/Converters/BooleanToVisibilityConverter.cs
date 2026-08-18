@@ -1,0 +1,22 @@
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
+
+namespace AdvancedCalculator.UI.Converters;
+
+public class BooleanToVisibilityConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        bool isTrue = value is bool b && b;
+        if (parameter is string paramStr && paramStr.Equals("Inverse", StringComparison.OrdinalIgnoreCase))
+            isTrue = !isTrue;
+
+        return isTrue ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return value is Visibility visibility && visibility == Visibility.Visible;
+    }
+}

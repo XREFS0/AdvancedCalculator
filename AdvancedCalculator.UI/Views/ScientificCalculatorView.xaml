@@ -1,0 +1,104 @@
+<UserControl x:Class="AdvancedCalculator.UI.Views.ScientificCalculatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="450">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Display -->
+            <RowDefinition Height="Auto" /> <!-- Modes Toolbar -->
+            <RowDefinition Height="*" />    <!-- Scientific Keypad -->
+        </Grid.RowDefinitions>
+
+        <!-- Display Area -->
+        <Border Grid.Row="0" Background="{DynamicResource CardBrush}" CornerRadius="12" Padding="16" Margin="0,0,0,10" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+            <StackPanel VerticalAlignment="Bottom">
+                <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource AccentSecondaryBrush}" FontSize="13" FontWeight="SemiBold" Margin="0,0,0,4" HorizontalAlignment="Right" />
+                <TextBlock Text="{Binding DisplayExpression}" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="16" HorizontalAlignment="Right" TextTrimming="CharacterEllipsis" MinHeight="22" />
+                <TextBox Text="{Binding CurrentInput, Mode=TwoWay}" Foreground="{DynamicResource TextBrush}" FontSize="32" FontWeight="Bold" HorizontalAlignment="Stretch" TextAlignment="Right" Background="Transparent" BorderThickness="0" IsReadOnly="True" Focusable="False" />
+            </StackPanel>
+        </Border>
+
+        <!-- Mode Selectors (DEG/RAD/GRAD & 2nd) -->
+        <Grid Grid.Row="1" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="{Binding CurrentAngleMode}" Style="{DynamicResource MemoryButtonStyle}" Command="{Binding ToggleAngleModeCommand}" Padding="10,0" Margin="0,0,8,0" />
+            <ToggleButton Grid.Column="1" Content="2ⁿᵈ" IsChecked="{Binding Is2ndFunction}" Width="50" Height="30" Background="{DynamicResource CardBrush}" Foreground="{DynamicResource TextBrush}" BorderBrush="{DynamicResource BorderBrush}" Cursor="Hand" />
+        </Grid>
+
+        <!-- Keypad (7 rows x 5 columns) -->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Row 0: 2nd, π, e, C, ⌫ -->
+            <Button Grid.Row="0" Grid.Column="0" Content="sin" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="sin" />
+            <Button Grid.Row="0" Grid.Column="1" Content="cos" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="cos" />
+            <Button Grid.Row="0" Grid.Column="2" Content="tan" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="tan" />
+            <Button Grid.Row="0" Grid.Column="3" Content="C" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding ClearCommand}" />
+            <Button Grid.Row="0" Grid.Column="4" Content="⌫" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding BackspaceCommand}" />
+
+            <!-- Row 1: sinh, cosh, tanh, (, ) -->
+            <Button Grid.Row="1" Grid.Column="0" Content="sinh" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="sinh" />
+            <Button Grid.Row="1" Grid.Column="1" Content="cosh" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="cosh" />
+            <Button Grid.Row="1" Grid.Column="2" Content="tanh" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="tanh" />
+            <Button Grid.Row="1" Grid.Column="3" Content="(" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding ParenthesisCommand}" CommandParameter="(" />
+            <Button Grid.Row="1" Grid.Column="4" Content=")" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding ParenthesisCommand}" CommandParameter=")" />
+
+            <!-- Row 2: xʸ, ln, log, ÷, π -->
+            <Button Grid.Row="2" Grid.Column="0" Content="xʸ" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding AppendOperatorCommand}" CommandParameter="^" />
+            <Button Grid.Row="2" Grid.Column="1" Content="ln" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="ln" />
+            <Button Grid.Row="2" Grid.Column="2" Content="log₁₀" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="log10" />
+            <Button Grid.Row="2" Grid.Column="3" Content="π" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding InsertConstantCommand}" CommandParameter="pi" />
+            <Button Grid.Row="2" Grid.Column="4" Content="÷" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding AppendOperatorCommand}" CommandParameter="/" />
+
+            <!-- Row 3: √x, 7, 8, 9, × -->
+            <Button Grid.Row="3" Grid.Column="0" Content="²√x" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="sqrt" />
+            <Button Grid.Row="3" Grid.Column="1" Content="7" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="7" />
+            <Button Grid.Row="3" Grid.Column="2" Content="8" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="8" />
+            <Button Grid.Row="3" Grid.Column="3" Content="9" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="9" />
+            <Button Grid.Row="3" Grid.Column="4" Content="×" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding AppendOperatorCommand}" CommandParameter="*" />
+
+            <!-- Row 4: n!, 4, 5, 6, - -->
+            <Button Grid.Row="4" Grid.Column="0" Content="n!" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="fact" />
+            <Button Grid.Row="4" Grid.Column="1" Content="4" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="4" />
+            <Button Grid.Row="4" Grid.Column="2" Content="5" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="5" />
+            <Button Grid.Row="4" Grid.Column="3" Content="6" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="6" />
+            <Button Grid.Row="4" Grid.Column="4" Content="-" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding AppendOperatorCommand}" CommandParameter="-" />
+
+            <!-- Row 5: |x|, 1, 2, 3, + -->
+            <Button Grid.Row="5" Grid.Column="0" Content="|x|" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding ScientificFunctionCommand}" CommandParameter="abs" />
+            <Button Grid.Row="5" Grid.Column="1" Content="1" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="1" />
+            <Button Grid.Row="5" Grid.Column="2" Content="2" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="2" />
+            <Button Grid.Row="5" Grid.Column="3" Content="3" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="3" />
+            <Button Grid.Row="5" Grid.Column="4" Content="+" Style="{DynamicResource OperatorButtonStyle}" Command="{Binding AppendOperatorCommand}" CommandParameter="+" />
+
+            <!-- Row 6: e, ±, 0, ., = -->
+            <Button Grid.Row="6" Grid.Column="0" Content="e" Style="{DynamicResource SciFuncButtonStyle}" Command="{Binding InsertConstantCommand}" CommandParameter="e" />
+            <Button Grid.Row="6" Grid.Column="1" Content="±" Style="{DynamicResource NumberButtonStyle}" Command="{Binding NegateCommand}" />
+            <Button Grid.Row="6" Grid.Column="2" Content="0" Style="{DynamicResource NumberButtonStyle}" Command="{Binding AppendDigitCommand}" CommandParameter="0" />
+            <Button Grid.Row="6" Grid.Column="3" Content="." Style="{DynamicResource NumberButtonStyle}" Command="{Binding DecimalCommand}" />
+            <Button Grid.Row="6" Grid.Column="4" Content="=" Style="{DynamicResource AccentButtonStyle}" Command="{Binding CalculateCommand}" />
+        </Grid>
+    </Grid>
+</UserControl>

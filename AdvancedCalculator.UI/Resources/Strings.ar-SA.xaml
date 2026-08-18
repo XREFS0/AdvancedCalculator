@@ -1,0 +1,25 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="AppTitle">الآلة الحاسبة المتقدمة الاحترافية</sys:String>
+    <sys:String x:Key="NavStandard">القياسية</sys:String>
+    <sys:String x:Key="NavScientific">العلمية</sys:String>
+    <sys:String x:Key="NavProgrammer">المبرمج</sys:String>
+    <sys:String x:Key="NavConverter">محول الوحدات</sys:String>
+    <sys:String x:Key="NavCurrency">محول العملات</sys:String>
+    <sys:String x:Key="NavHistory">سجل العمليات</sys:String>
+    <sys:String x:Key="NavSettings">الإعدادات</sys:String>
+    <sys:String x:Key="NavAbout">حول التطبيق</sys:String>
+
+    <sys:String x:Key="Clear">C</sys:String>
+    <sys:String x:Key="ClearEntry">CE</sys:String>
+    <sys:String x:Key="Backspace">⌫</sys:String>
+    <sys:String x:Key="Calculate">=</sys:String>
+
+    <sys:String x:Key="SettingsTheme">وضع المظهر</sys:String>
+    <sys:String x:Key="SettingsLanguage">اللغة</sys:String>
+    <sys:String x:Key="SettingsPrecision">الدقة العشرية</sys:String>
+    <sys:String x:Key="SettingsAlwaysOnTop">البقاء دائماً في المقدمة</sys:String>
+    <sys:String x:Key="SettingsAutoCopy">نسخ النتيجة تلقائياً للحافظة</sys:String>
+</ResourceDictionary>
